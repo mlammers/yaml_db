@@ -29,8 +29,12 @@ RSpec.describe SerializationHelper::Base do
     end
 
     it "creates the number of files that there are tables" do
-       SerializationHelper::Base.new(@helper).dump_to_dir "dir_name"
+       SerializationHelper::Base.new(@helper).dump_to_dir "dir_name", nil
     end
+
+  end
+
+  context "for dumps of certain tables" do
 
   end
 

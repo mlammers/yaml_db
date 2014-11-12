@@ -15,9 +15,10 @@ module SerializationHelper
       reenable_logger
     end
 
-    def dump_to_dir(dirname)
+    def dump_to_dir(dirname, table_name)
       Dir.mkdir(dirname)
       tables = @dumper.tables
+      tables.delete_if{|table| table_name && table != table_name}
       tables.each do |table|
         io = File.new "#{dirname}/#{table}.#{@extension}", "w"
         @dumper.before_table(io, table)

@@ -22,10 +22,11 @@ namespace :db do
     end
 
     desc "Dump contents of database to curr_dir_name/tablename.extension (defaults to yaml)"
-    task :dump_dir => :environment do
+    task :dump_dir, [:table_name] => :environment do |t, args|
+      table_name = args[:table_name]
       format_class = ENV['class'] || "YamlDb::Helper"
       dir = ENV['dir'] || "#{Time.now.to_s.gsub(/ /, '_')}"
-      SerializationHelper::Base.new(format_class.constantize).dump_to_dir dump_dir("/#{dir}")
+      SerializationHelper::Base.new(format_class.constantize).dump_to_dir dump_dir("/#{dir}") table_name
     end
 
     desc "Load contents of db/data.extension (defaults to yaml) into database"
