@@ -12,7 +12,7 @@ namespace :db do
     end
 
     desc "Dump contents of database to curr_dir_name/tablename.extension (defaults to yaml)"
-    task :dump_dir[:table_name] => :environment do
+    task :dump_dir, [:table_name] => :environment do |t, args|
       YamlDb::RakeTasks.data_dump_dir_task(args[:table_name])
     end
 

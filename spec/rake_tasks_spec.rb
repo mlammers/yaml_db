@@ -27,21 +27,29 @@ module YamlDb
     describe '.data_dump_dir_task' do
       it 'dumps to a directory' do
         expect(SerializationHelper::Base).to receive(:new).once.with(YamlDb::Helper)
-        expect(@serializer).to receive(:dump_to_dir).once.with('/root/db/2007-08-09_12:34:56')
+        expect(@serializer).to receive(:dump_to_dir).once.with('/root/db/2007-08-09_12:34:56', nil)
         RakeTasks.data_dump_dir_task
       end
 
       it 'dumps to a directory using a user-specified format class' do
         stub_const('ENV', 'class' => 'UserSpecifiedHelper')
         expect(SerializationHelper::Base).to receive(:new).once.with(UserSpecifiedHelper)
-        expect(@serializer).to receive(:dump_to_dir).once.with('/root/db/2007-08-09_12:34:56')
+        expect(@serializer).to receive(:dump_to_dir).once.with('/root/db/2007-08-09_12:34:56', nil)
         RakeTasks.data_dump_dir_task
+      end
+
+      it 'dumps only a user-specified table' do
+        allow(YamlDb::Helper.dumper).to receive(:before_table)
+        allow(YamlDb::Helper.dumper).to receive(:dump_table)
+        allow(YamlDb::Helper.dumper).to receive(:after_table)
+        expect(@serializer).to receive(:dump_to_dir).once.with('/root/db/2007-08-09_12:34:56', 'test_table')
+        RakeTasks.data_dump_dir_task('test_table')
       end
 
       it 'dumps to a user-specified directory' do
         stub_const('ENV', 'dir' => 'user_dir')
         expect(SerializationHelper::Base).to receive(:new).once.with(YamlDb::Helper)
-        expect(@serializer).to receive(:dump_to_dir).once.with('/root/db/user_dir')
+        expect(@serializer).to receive(:dump_to_dir).once.with('/root/db/user_dir', nil)
         RakeTasks.data_dump_dir_task
       end
     end

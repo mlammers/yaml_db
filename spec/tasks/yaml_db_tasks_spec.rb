@@ -37,7 +37,7 @@ RSpec.describe 'Rake tasks' do
     end
 
     it 'invokes the correct task' do
-      expect(YamlDb::RakeTasks).to receive(:data_dump_dir_task).once.with(no_args)
+      expect(YamlDb::RakeTasks).to receive(:data_dump_dir_task).once.with(nil)
       subject.invoke
     end
   end

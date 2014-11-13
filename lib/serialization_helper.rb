@@ -15,7 +15,7 @@ module SerializationHelper
       reenable_logger
     end
 
-    def dump_to_dir(dirname, table_name)
+    def dump_to_dir(dirname, table_name = nil)
       Dir.mkdir(dirname)
       tables = @dumper.tables
       tables.delete_if{|table| table_name && table != table_name}
