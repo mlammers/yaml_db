@@ -26,7 +26,7 @@ namespace :db do
       table_name = args[:table_name]
       format_class = ENV['class'] || "YamlDb::Helper"
       dir = ENV['dir'] || "#{Time.now.to_s.gsub(/ /, '_')}"
-      SerializationHelper::Base.new(format_class.constantize).dump_to_dir dump_dir("/#{dir}") table_name
+      SerializationHelper::Base.new(format_class.constantize).dump_to_dir dump_dir("/#{dir}"), table_name
     end
 
     desc "Load contents of db/data.extension (defaults to yaml) into database"
