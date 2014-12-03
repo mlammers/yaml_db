@@ -7,8 +7,8 @@ namespace :db do
 
   namespace :data_seedomatic do
     desc "Dump contents of database to db/data.extension (defaults to yaml)"
-    task :dump => :environment do
-      SeedomaticYamlDb::RakeTasks.data_dump_task
+    task :dump, [:table_name] => :environment do |t, args|
+      SeedomaticYamlDb::RakeTasks.data_dump_task(args[:table_name])
     end
 
     desc "Dump contents of database to curr_dir_name/tablename.extension (defaults to yaml)"
