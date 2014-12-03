@@ -4,8 +4,8 @@ require 'active_record'
 require 'serialization_helper'
 require 'active_support/core_ext/kernel/reporting'
 require 'rails/railtie'
-require 'yaml_db/rake_tasks'
-require 'yaml_db/version'
+require 'seedomatic_yaml_db/rake_tasks'
+require 'seedomatic_yaml_db/version'
 
 module SeedomaticYamlDb
   module Helper
@@ -34,12 +34,15 @@ module SeedomaticYamlDb
     def self.map_attributes(record_hash, columns)
       mapped_attributes = {}
       columns.map {|key| mapped_attributes.merge!(key => record_hash[key])}
+      p mapped_attributes
       mapped_attributes
     end
 
     def self.prepare_records(records, column_names)
       records.each_with_index do |record, index|
         #each record will be a hash at this point
+        p record
+        p index
         records[index] = map_attributes(record, column_names)
       end
     end
@@ -83,7 +86,7 @@ module SeedomaticYamlDb
 
   class Railtie < Rails::Railtie
     rake_tasks do
-      load File.expand_path('../tasks/yaml_db_tasks.rake',
+      load File.expand_path('../tasks/seedomatic_yaml_db_tasks.rake',
 __FILE__)
     end
   end
