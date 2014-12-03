@@ -52,22 +52,22 @@ module SeedomaticYamlDb
   class Dump < SerializationHelper::Dump
 
     def self.dump_table_columns(io, table)
-#      io.write("\n")
-#      io.write({ table => { 'columns' => table_column_names(table) } }.to_yaml)
     end
 
     def self.dump_table_records(io, table)
-      table_record_header(io)
+      table_record_header(io, table)
 
       column_names = table_column_names(table)
 
       each_table_page(table) do |records|
-        rows = SeedomaticYamlDb::Utlis.prepare_records(records.to_a, column_names)
+        rows = SeedomaticYamlDb::Utils.prepare_records(records.to_a, column_names)
         io.write(SeedomaticYamlDb::Utils.chunk_records(rows))
       end
     end
 
-    def self.table_record_header(io)
+    def self.table_record_header(io, table)
+      io.write("#{table.singularize.camelize}: \n")
+      io.write("  tags: all \n")
       io.write("  items: \n")
     end
 
