@@ -18,7 +18,7 @@ module SerializationHelper
     def dump_to_dir(dirname, table_name = nil)
       Dir.mkdir(dirname)
       tables = @dumper.tables
-      tables.delete_if{|table| table_name && table != table_name}
+      tables.delete_if{|table| table_name && table.to_s != table_name.to_s}
       tables.each do |table|
         io = File.new "#{dirname}/#{table}.#{@extension}", "w"
         @dumper.before_table(io, table)
