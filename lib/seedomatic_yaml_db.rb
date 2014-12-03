@@ -34,15 +34,12 @@ module SeedomaticYamlDb
     def self.map_attributes(record_hash, columns)
       mapped_attributes = {}
       columns.map {|key| mapped_attributes.merge!(key => record_hash[key])}
-      p mapped_attributes
       mapped_attributes
     end
 
     def self.prepare_records(records, column_names)
       records.each_with_index do |record, index|
         #each record will be a hash at this point
-        p record
-        p index
         records[index] = map_attributes(record, column_names)
       end
     end
