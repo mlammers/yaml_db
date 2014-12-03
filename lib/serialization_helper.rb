@@ -9,9 +9,16 @@ module SerializationHelper
       @extension = helper.extension
     end
 
-    def dump(filename)
+    def dump(filename, table_name = nil)
       disable_logger
-      @dumper.dump(File.new(filename, "w"))
+      tables = @dumper.tables
+      tables.delete_if{|table| table_name && table.to_s != table_name.to_s}
+      tables.each do |table|
+        io = File.new(filename, "w") 
+        @dumper.before_table(io, table)
+        @dumper.dump_table io, table
+        @dumper.after_table(io, table)
+      end
       reenable_logger
     end
 

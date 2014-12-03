@@ -7,8 +7,8 @@ namespace :db do
 
   namespace :data do
     desc "Dump contents of database to db/data.extension (defaults to yaml)"
-    task :dump => :environment do
-      YamlDb::RakeTasks.data_dump_task
+    task :dump, [:table_name] => :environment do
+      YamlDb::RakeTasks.data_dump_task(args[:table_name])
     end
 
     desc "Dump contents of database to curr_dir_name/tablename.extension (defaults to yaml)"
