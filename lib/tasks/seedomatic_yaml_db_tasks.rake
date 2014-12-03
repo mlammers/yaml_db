@@ -1,9 +1,9 @@
 namespace :db do
   desc "Dump schema and data to db/schema.rb and db/data.yml"
-  task(:dump => [ "db:schema:dump", "db:data_seedomatic:dump" ])
+  task(:dump_seedomatic => [ "db:schema:dump", "db:data_seedomatic:dump" ])
 
   desc "Load schema and data from db/schema.rb and db/data.yml"
-  task(:load => [ "db:schema:load", "db:data_seedomatic:load" ])
+  task(:load_seedomatic => [ "db:schema:load", "db:data_seedomatic:load" ])
 
   namespace :data_seedomatic do
     desc "Dump contents of database to db/data.extension (defaults to yaml)"
