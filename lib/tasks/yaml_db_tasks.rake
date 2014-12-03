@@ -8,22 +8,22 @@ namespace :db do
   namespace :data do
     desc "Dump contents of database to db/data.extension (defaults to yaml)"
     task :dump, [:table_name] => :environment do |t, args|
-      YamlDb::RakeTasks.data_dump_task(args[:table_name])
+      SeedomaticYamlDb::RakeTasks.data_dump_task(args[:table_name])
     end
 
     desc "Dump contents of database to curr_dir_name/tablename.extension (defaults to yaml)"
     task :dump_dir, [:table_name] => :environment do |t, args|
-      YamlDb::RakeTasks.data_dump_dir_task(args[:table_name])
+      SeedomaticYamlDb::RakeTasks.data_dump_dir_task(args[:table_name])
     end
 
     desc "Load contents of db/data.extension (defaults to yaml) into database"
     task :load => :environment do
-      YamlDb::RakeTasks.data_load_task
+      SeedomaticYamlDb::RakeTasks.data_load_task
     end
 
     desc "Load contents of db/data_dir into database"
     task :load_dir  => :environment do
-      YamlDb::RakeTasks.data_load_dir_task
+      SeedomaticYamlDb::RakeTasks.data_load_dir_task
     end
   end
 end
