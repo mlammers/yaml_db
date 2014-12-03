@@ -1,7 +1,8 @@
 module SeedomaticYamlDb
   module RakeTasks
     def self.data_dump_task(table_name = nil)
-      SerializationHelper::Base.new(helper).dump(db_dump_data_file(helper.extension), table_name)
+      file_name = table_name ? [dump_dir, table_name + ".#{helper.extension}"].join("/") : db_dump_data_file(helper.extension)
+      SerializationHelper::Base.new(helper).dump(file_name, table_name)
     end
 
     def self.data_dump_dir_task(table_name = nil)
